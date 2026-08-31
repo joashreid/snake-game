@@ -20,6 +20,7 @@ body {
 .game-shell { width: min(100%, 480px); }
 .device-label, .eyebrow, .screen-label, .control-note { font-family: "Courier New", monospace; font-weight: 700; letter-spacing: .13em; }
 .device-label { margin: 0 0 10px; color: #bf5531; font-size: .68rem; }
+.signal-dot { display: inline-block; width: 7px; height: 7px; margin-right: 5px; border-radius: 50%; background: #5d8a48; box-shadow: 0 0 0 2px rgb(93 138 72 / 20%); }
 
 header { display: flex; align-items: end; justify-content: space-between; padding: 0 5px 13px; }
 .eyebrow { margin: 0 0 3px; color: #54615d; font-size: .58rem; }
