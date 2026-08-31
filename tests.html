@@ -1,0 +1,31 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Snake logic tests</title>
+<pre id="results"></pre>
+<script type="module">
+  import { DIRECTIONS, createGame, setDirection, spawnFood, tick } from './game.js';
+  const results = document.querySelector('#results');
+  const tests = [];
+  const test = (name, fn) => tests.push({ name, fn });
+  const equal = (actual, expected) => { if (JSON.stringify(actual) !== JSON.stringify(expected)) throw new Error(`expected ${JSON.stringify(expected)}, got ${JSON.stringify(actual)}`); };
+
+  test('moves one cell in its direction', () => equal(tick(createGame(() => 0)).snake[0], { x: 10, y: 9 }));
+  test('does not allow reversing direction', () => equal(setDirection(createGame(), 'left').nextDirection, DIRECTIONS.right));
+  test('grows and increments score after eating', () => {
+    const game = { ...createGame(), food: { x: 10, y: 9 } };
+    const next = tick(game, () => 0);
+    equal([next.snake.length, next.score], [4, 1]);
+  });
+  test('ends the game at a boundary', () => {
+    const game = { ...createGame(), snake: [{ x: 17, y: 0 }], direction: DIRECTIONS.right, nextDirection: DIRECTIONS.right };
+    equal(tick(game).over, true);
+  });
+  test('spawns food only on empty cells', () => equal(spawnFood([{ x: 0, y: 0 }], () => 0, 2), { x: 1, y: 0 }));
+
+  let passed = 0;
+  for (const { name, fn } of tests) {
+    try { fn(); passed += 1; results.textContent += `PASS ${name}\n`; }
+    catch (error) { results.textContent += `FAIL ${name}: ${error.message}\n`; }
+  }
+  results.textContent += `\n${passed}/${tests.length} passed`;
+</script>
