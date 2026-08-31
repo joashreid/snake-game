@@ -2,6 +2,7 @@ import { BOARD_SIZE, createGame, setDirection, sameCell, tick } from './game.js'
 
 const board = document.querySelector('#board');
 const score = document.querySelector('#score');
+const bestScore = document.querySelector('#best-score');
 const status = document.querySelector('#status');
 const pauseButton = document.querySelector('#pause');
 const restartButton = document.querySelector('#restart');
@@ -9,6 +10,23 @@ const keyDirections = { ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'left', Arr
 
 let game = createGame();
 let timerId;
+let highScore = readHighScore();
+
+function readHighScore() {
+  try {
+    return Number.parseInt(localStorage.getItem('pocket-signal-high-score') || '0', 10) || 0;
+  } catch {
+    return 0;
+  }
+}
+
+function saveHighScore(value) {
+  try {
+    localStorage.setItem('pocket-signal-high-score', String(value));
+  } catch {
+    // The game remains playable when private browsing blocks storage.
+  }
+}
 
 function render() {
   board.replaceChildren();
@@ -23,14 +41,27 @@ function render() {
     }
   }
   score.textContent = game.score;
+  if (game.score > highScore) {
+    highScore = game.score;
+    saveHighScore(highScore);
+  }
+  bestScore.textContent = highScore;
+  board.classList.toggle('is-over', game.over);
+  board.classList.toggle('is-paused', !game.running && !game.over);
   pauseButton.disabled = game.over;
   pauseButton.textContent = game.over ? 'Game Over' : game.running ? 'Pause' : 'Resume';
   status.textContent = game.won ? 'You filled the board. Restart to play again.' : game.over ? 'Game over. Restart to play again.' : game.running ? 'Use arrow keys or WASD to move.' : 'Paused.';
 }
 
 function advance() {
+  const previousScore = game.score;
   game = tick(game);
   render();
+  if (game.score > previousScore) {
+    board.classList.remove('is-feeding');
+    void board.offsetWidth;
+    board.classList.add('is-feeding');
+  }
 }
 
 function startTimer() {

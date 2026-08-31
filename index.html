@@ -15,10 +15,11 @@
           <h1>Snake</h1>
         </div>
         <p class="score" aria-live="polite"><span>Score</span><strong id="score">0</strong></p>
+        <p class="score best-score" aria-live="polite"><span>Best</span><strong id="best-score">0</strong></p>
       </header>
       <section class="console" aria-label="Pocket Signal game console">
         <div class="screen-bezel">
-          <p class="screen-label">SNAKE SYSTEM</p>
+          <div class="screen-header"><p class="screen-label">SNAKE SYSTEM</p><span class="screen-glow" aria-hidden="true"></span></div>
           <div id="board" class="board" role="application" aria-label="Snake game board"></div>
           <p id="status" class="status" aria-live="polite">Use arrow keys or WASD to move.</p>
         </div>
