@@ -8,22 +8,33 @@
   </head>
   <body>
     <main class="game-shell">
+      <p class="device-label">POCKET SIGNAL / 01</p>
       <header>
-        <h1>Snake</h1>
-        <p class="score" aria-live="polite">Score: <span id="score">0</span></p>
+        <div>
+          <p class="eyebrow">ORBITAL GAMES</p>
+          <h1>Snake</h1>
+        </div>
+        <p class="score" aria-live="polite"><span>Score</span><strong id="score">0</strong></p>
       </header>
-      <div id="board" class="board" role="application" aria-label="Snake game board"></div>
-      <p id="status" class="status" aria-live="polite">Use arrow keys or WASD to move.</p>
-      <div class="actions">
-        <button id="pause" type="button">Pause</button>
-        <button id="restart" type="button">Restart</button>
+      <section class="console" aria-label="Pocket Signal game console">
+        <div class="screen-bezel">
+          <p class="screen-label">SNAKE SYSTEM</p>
+          <div id="board" class="board" role="application" aria-label="Snake game board"></div>
+          <p id="status" class="status" aria-live="polite">Use arrow keys or WASD to move.</p>
+        </div>
+        <div class="console-actions">
+          <button id="pause" type="button">Pause</button>
+          <button id="restart" type="button">Restart</button>
+        </div>
+        <div class="speaker" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
       </div>
       <div class="controls" aria-label="Snake controls">
-        <button type="button" data-direction="up" aria-label="Move up">Up</button>
-        <button type="button" data-direction="left" aria-label="Move left">Left</button>
-        <button type="button" data-direction="down" aria-label="Move down">Down</button>
-        <button type="button" data-direction="right" aria-label="Move right">Right</button>
+        <button type="button" data-direction="up" aria-label="Move up">▲</button>
+        <button type="button" data-direction="left" aria-label="Move left">◀</button>
+        <button type="button" data-direction="down" aria-label="Move down">▼</button>
+        <button type="button" data-direction="right" aria-label="Move right">▶</button>
       </div>
+      <p class="control-note">ARROWS / WASD TO MOVE</p>
     </main>
     <script type="module" src="app.js"></script>
   </body>

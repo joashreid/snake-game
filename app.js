@@ -23,7 +23,8 @@ function render() {
     }
   }
   score.textContent = game.score;
-  pauseButton.textContent = game.running ? 'Pause' : 'Resume';
+  pauseButton.disabled = game.over;
+  pauseButton.textContent = game.over ? 'Game Over' : game.running ? 'Pause' : 'Resume';
   status.textContent = game.won ? 'You filled the board. Restart to play again.' : game.over ? 'Game over. Restart to play again.' : game.running ? 'Use arrow keys or WASD to move.' : 'Paused.';
 }
 
